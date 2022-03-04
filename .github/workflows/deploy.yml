@@ -10,16 +10,28 @@ jobs:
     name: "Conventionnal-commit"
     runs-on: ubuntu-latest
     steps:
-    - run: echo "Salutation"
-    - uses: actions/checkout@v2
-    - run: |
-      git config --local user.email "github-action[bot]@users.noreply.github.com"
-      git config --local user.name "github-action[bot]"
-    - uses: actions/setup-node@v2
+
+    - name: "Affichage d'un message d'exemple"
+      run: echo "Salutation"
+
+    - name: "pull du git"
+      uses: actions/checkout@v2
+
+    - name: "installation de nodeJS version 14"
+      uses: actions/setup-node@v2
       with:
         node-version: '14'
-    - run: npx stardard-version
-    - uses: ad-m/github-push-action@master
+
+    - name: "configuration de l'utilisateur"
+      run: |
+        git config --local user.email "github-action[bot]@users.noreply.github.com"
+        git config --local user.name "github-action[bot]"
+
+    - name: "Création du Changelog et du calcul de version"
+      run: npx stardard-version
+      
+    - name: "git push"
+      uses: ad-m/github-push-action@master
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
         branch: main

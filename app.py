@@ -16,5 +16,14 @@ def hello():
     """
     return 'Hello, World !'
 
+
+@app.route('/<name>')
+def hello(name):
+    return f'Hello, {name} !'
+
+@app.route('/poulet')
+def hello(name):
+    return 'Hello, poulet!'
+
 if __name__ == "__maim__":
     app.run(host=HOST, port=PORT)
